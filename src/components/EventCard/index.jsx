@@ -1,11 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./EventCard.css";
+import makeRequest from "../../utils/makeRequest";
+import { UPDATE_BLOG_DATA } from "../../constants/apiEndPoints";
+import { AllEventDataContext } from "../../context/EventDetails";
+import { updateEventData } from "../../utils/common";
 
 function EventCard(props) {
   const {
+    id,
     imgUrl,
     description,
     name,
@@ -14,10 +19,28 @@ function EventCard(props) {
     isBookmarked,
     isRegistered,
   } = props;
-  const [bookMark, setBookMark] = useState(isBookmarked);
-  const handleClick = () => {
-    setBookMark(!isBookmarked);
+  const { allEventData, setAllEventData } = useContext(AllEventDataContext);
+
+  const handleBookMark = async () => {
+    if (allEventData) {
+      try {
+        await makeRequest(UPDATE_BLOG_DATA(id), {
+          data: { isBookmarked: !isBookmarked },
+        });
+        updateEventData(
+          {
+            ...props,
+            isBookmarked: !isBookmarked,
+          },
+          allEventData,
+          setAllEventData
+        );
+      } catch (e) {
+        // TODO: Handle error
+      }
+    }
   };
+
   return (
     <div className="cardBody">
       <div className="eventImage">
@@ -40,8 +63,8 @@ function EventCard(props) {
           {isRegistered ? <div>Registered</div> : null}
           <div className="bookMark">
             <i
-              className={bookMark ? "fas fa-bookmark" : "far fa-bookmark"}
-              onClick={handleClick}
+              className={isBookmarked ? "fas fa-bookmark" : "far fa-bookmark"}
+              onClick={handleBookMark}
             />
           </div>
         </div>

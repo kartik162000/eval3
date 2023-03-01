@@ -5,7 +5,7 @@ export const GET_ALL_EVENT_DATA = {
   method: "get",
 };
 
-// export const UPDATE_BLOG_DATA = (blogId: number) => ({
-//   url: `blog-posts/${blogId}`,
-//   method: "put",
-// });
+export const UPDATE_BLOG_DATA = (id) => ({
+  url: `api/events/${id}`,
+  method: "patch",
+});
