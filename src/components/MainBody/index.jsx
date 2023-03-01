@@ -11,6 +11,7 @@ import "./MainBody.css";
 function MainBody() {
   const { allEventData, setAllEventData } =
     React.useContext(AllEventDataContext);
+  const [searchText, setSearchText] = React.useState("");
   React.useEffect(() => {
     makeRequest(GET_ALL_EVENT_DATA, {}).then((response) => {
       response.sort((a, b) => {
@@ -22,14 +23,26 @@ function MainBody() {
         }
         return 0;
       });
-      console.log(response);
       setAllEventData(response);
     });
   }, []);
+  React.useEffect(() => {
+    if (searchText) {
+      if (allEventData) {
+        const filteredData = [...allEventData].filter((event) => {
+          return event.name.toLowerCase().includes(searchText.toLowerCase());
+        });
+        setAllEventData(filteredData);
+      }
+    } else {
+      console.log("searchTextss", searchText);
+      setAllEventData(allEventData);
+    }
+  }, [searchText]);
   return (
     <div>
       <div className="outerContainer">
-        <Tags />
+        <Tags setSearchText={setSearchText} />
         <div className="cardContainer">
           <div className="cardArea">
             {allEventData &&
