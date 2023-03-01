@@ -18,8 +18,17 @@ function EventCard(props) {
     datetime,
     isBookmarked,
     isRegistered,
+    areSeatsAvailable,
   } = props;
   const { allEventData, setAllEventData } = useContext(AllEventDataContext);
+
+  const renderIcon = () => {
+    if (isRegistered)
+      return <i className="fas fa-check-circle"> Registered </i>;
+    if (!areSeatsAvailable)
+      return <i className="fas fa-times-circle"> Seats Not Available </i>;
+    return null;
+  };
 
   const handleBookMark = async () => {
     if (allEventData) {
@@ -60,7 +69,7 @@ function EventCard(props) {
           {datetime}
         </div>
         <div className="eventIcons">
-          {isRegistered ? <div>Registered</div> : null}
+          {renderIcon()}
           <div className="bookMark">
             <i
               className={isBookmarked ? "fas fa-bookmark" : "far fa-bookmark"}
