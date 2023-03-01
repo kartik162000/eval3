@@ -1,14 +1,17 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import "./EventCard.css";
+import { useNavigate } from "react-router-dom";
 import makeRequest from "../../utils/makeRequest";
-import { UPDATE_BLOG_DATA } from "../../constants/apiEndPoints";
+import { UPDATE_EVENT_DATA } from "../../constants/apiEndPoints";
 import { AllEventDataContext } from "../../context/EventDetails";
 import { updateEventData } from "../../utils/common";
 
 function EventCard(props) {
+  const navigate = useNavigate();
   const {
     id,
     imgUrl,
@@ -33,7 +36,7 @@ function EventCard(props) {
   const handleBookMark = async () => {
     if (allEventData) {
       try {
-        await makeRequest(UPDATE_BLOG_DATA(id), {
+        await makeRequest(UPDATE_EVENT_DATA(id), {
           data: { isBookmarked: !isBookmarked },
         });
         updateEventData(
@@ -52,7 +55,7 @@ function EventCard(props) {
 
   return (
     <div className="cardBody">
-      <div className="eventImage">
+      <div className="eventImage" onClick={() => navigate(`/event/${id}`)}>
         <img src={imgUrl} alt="event" />
       </div>
       <div className="cardContent">

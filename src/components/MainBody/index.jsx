@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import EventCard from "../EventCard";
 import Tags from "../Tags";

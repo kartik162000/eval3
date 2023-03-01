@@ -5,7 +5,17 @@ export const GET_ALL_EVENT_DATA = {
   method: "get",
 };
 
-export const UPDATE_BLOG_DATA = (id) => ({
+export const GET_EVENT_DATA = (id) => ({
+  url: `api/events/${id}`,
+  method: "get",
+});
+
+export const UPDATE_EVENT_DATA = (id) => ({
   url: `api/events/${id}`,
   method: "patch",
 });
+
+export const GET_ALL_THEMES = {
+  url: "api/themes",
+  method: "get",
+};
