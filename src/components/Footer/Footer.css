@@ -1,0 +1,25 @@
+
+/* @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@700&family=Big+Shoulders+Text:wght@700&family=Sofia+Sans:wght@400;700&display=swap'); */
+.footer
+{
+    /* height: 14vh; */
+    display: flex;
+    min-width: 100%;
+    background-color: #000;
+    color: #fff;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    /* font-size: 50px; */
+}
+.foot
+{
+    width:80%;
+    display: flex;
+    justify-content: flex-start;
+}
+.themeColor
+{
+   text-align: center;
+}
