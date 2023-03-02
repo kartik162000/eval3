@@ -7,6 +7,8 @@ function Tags(props) {
   const handleChange = (e) => {
     props.setSearchText(e.target.value);
   };
+  // const handleFilter = (e) => {
+  // }
   return (
     <div className="tagsContainer">
       <div className="filtersandSearch">

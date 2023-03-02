@@ -11,7 +11,8 @@ import "./MainBody.css";
 function MainBody() {
   const { allEventData, setAllEventData } =
     React.useContext(AllEventDataContext);
-  const [searchText, setSearchText] = React.useState("");
+  const [filteredData, setFilteredData] = React.useState([]);
+  // const [filterDataOnTags, setFilterDataOnTags] = React.useState([]);
   React.useEffect(() => {
     makeRequest(GET_ALL_EVENT_DATA, {}).then((response) => {
       response.sort((a, b) => {
@@ -23,30 +24,25 @@ function MainBody() {
         }
         return 0;
       });
+      setFilteredData(response);
       setAllEventData(response);
     });
   }, []);
-  React.useEffect(() => {
-    if (searchText) {
-      if (allEventData) {
-        const filteredData = [...allEventData].filter((event) => {
-          return event.name.toLowerCase().includes(searchText.toLowerCase());
-        });
-        setAllEventData(filteredData);
-      }
-    } else {
-      console.log("searchTextss", searchText);
-      setAllEventData(allEventData);
-    }
-  }, [searchText]);
+  const searchFunction = (searchText) => {
+    setFilteredData([
+      ...allEventData.filter((event) => {
+        return event.name.toLowerCase().includes(searchText.toLowerCase());
+      }),
+    ]);
+  };
   return (
     <div>
       <div className="outerContainer">
-        <Tags setSearchText={setSearchText} />
+        <Tags setSearchText={searchFunction} />
         <div className="cardContainer">
           <div className="cardArea">
-            {allEventData &&
-              allEventData.map((event) => (
+            {filteredData &&
+              filteredData.map((event) => (
                 <EventCard
                   key={event.id}
                   id={event.id}
