@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import makeRequest from "../../utils/makeRequest";
 import { UPDATE_EVENT_DATA } from "../../constants/apiEndPoints";
 import { AllEventDataContext } from "../../context/EventDetails";
-import { updateEventData } from "../../utils/common";
+import { updateEventData, returnThemeColor } from "../../utils/common";
+import { ThemeContext } from "../../context/Themes";
 
 function EventCard(props) {
+  const { themeData, setAllThemeData } = useContext(ThemeContext);
   const navigate = useNavigate();
   const {
     id,
@@ -58,7 +60,10 @@ function EventCard(props) {
       <div className="eventImage" onClick={() => navigate(`/event/${id}`)}>
         <img src={imgUrl} alt="event" />
       </div>
-      <div className="cardContent">
+      <div
+        className="cardContent"
+        style={{ backgroundColor: returnThemeColor(themeData) }}
+      >
         <div className="eventHeading">
           <p>{name}</p>
         </div>

@@ -19,3 +19,8 @@ export const GET_ALL_THEMES = {
   url: "api/themes",
   method: "get",
 };
+
+export const UPDATE_THEME_DATA = {
+  url: "api/themes",
+  method: "put",
+};

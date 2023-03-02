@@ -3,14 +3,16 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useContext } from "react";
 import "./FullEventDetails.css";
 import { UPDATE_EVENT_DATA } from "../../constants/apiEndPoints";
 import makeRequest from "../../utils/makeRequest";
-import { updateEventData } from "../../utils/common";
+import { updateEventData, returnThemeColor } from "../../utils/common";
 import { AllEventDataContext } from "../../context/EventDetails";
+import { ThemeContext } from "../../context/Themes";
 
 function FullEventDetails(props) {
+  const { themeData, setAllThemeData } = useContext(ThemeContext);
   const { allEventData, setAllEventData } =
     React.useContext(AllEventDataContext);
   const handleBookMark = async () => {
@@ -54,13 +56,28 @@ function FullEventDetails(props) {
       return <i className="fas fa-times-circle"> Seats Not Available </i>;
     return null;
   };
+  const renderRegisterButton = () => {
+    if (props.data.areSeatsAvailable) {
+      return (
+        <div className="btn-register">
+          <button type="button" className="" onClick={handleRegister}>
+            {props.data.isRegistered ? "Unregister" : "Register"}
+          </button>
+        </div>
+      );
+    }
+    return null;
+  };
   return (
     <div className="fullEventDetailsContainer">
       <div className="cardBodyFull">
         <div className="eventImage">
           <img src={props.data.imgUrl} alt="event" />
         </div>
-        <div className="cardContentfull">
+        <div
+          className="cardContentfull"
+          style={{ backgroundColor: returnThemeColor(themeData) }}
+        >
           <div className="eventHeadingfull">
             <p>{props.data.name}</p>
           </div>
@@ -86,11 +103,7 @@ function FullEventDetails(props) {
               />
             </div>
           </div>
-          <div className="btn-register">
-            <button type="button" className="" onClick={handleRegister}>
-              {props.data.isRegistered ? "Unregister" : "Register"}
-            </button>
-          </div>
+          {renderRegisterButton()}
         </div>
       </div>
     </div>

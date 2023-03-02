@@ -16,3 +16,10 @@ export const updateEventData = (
     ...allEventData.slice(eventDataIndex + 1),
   ]);
 };
+
+export const returnThemeColor = (themeData) => {
+  const color = themeData.themes.filter(
+    (th) => th.id === themeData.preferredThemeId
+  );
+  return color[0].colorHexCode;
+};

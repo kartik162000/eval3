@@ -44,7 +44,7 @@ height:70vh;
     text-align: center;
     padding:10px ;
     box-sizing: border-box;
-    background-color: #000;
+    /* background-color: #000; */
     color: white;
     border-radius: inherit;
     border-top-left-radius: 0px;
