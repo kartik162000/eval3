@@ -7,12 +7,16 @@ import React, { useContext } from "react";
 import "./FullEventDetails.css";
 import { UPDATE_EVENT_DATA } from "../../constants/apiEndPoints";
 import makeRequest from "../../utils/makeRequest";
-import { updateEventData, returnThemeColor } from "../../utils/common";
+import {
+  updateEventData,
+  returnThemeColor,
+  dateGetter,
+} from "../../utils/common";
 import { AllEventDataContext } from "../../context/EventDetails";
 import { ThemeContext } from "../../context/Themes";
 
 function FullEventDetails(props) {
-  const { themeData, setAllThemeData } = useContext(ThemeContext);
+  const { themeData } = useContext(ThemeContext);
   const { allEventData, setAllEventData } =
     React.useContext(AllEventDataContext);
   const handleBookMark = async () => {
@@ -88,7 +92,7 @@ function FullEventDetails(props) {
           </div>
           <div className="eventDatefull">
             <span className="boldClass"> DATE: </span>
-            {props.data.datetime}
+            {dateGetter(props.data.datetime)}
           </div>
           <div className="eventIcons">
             {renderIcon()}

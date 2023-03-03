@@ -55,6 +55,8 @@ function MainBody() {
                   isBookmarked={event.isBookmarked}
                   isRegistered={event.isRegistered}
                   areSeatsAvailable={event.areSeatsAvailable}
+                  // setFilteredData={setFilteredData}
+                  // filteredData={filteredData}
                 />
               ))}
           </div>

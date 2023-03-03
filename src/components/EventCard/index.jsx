@@ -8,11 +8,15 @@ import { useNavigate } from "react-router-dom";
 import makeRequest from "../../utils/makeRequest";
 import { UPDATE_EVENT_DATA } from "../../constants/apiEndPoints";
 import { AllEventDataContext } from "../../context/EventDetails";
-import { updateEventData, returnThemeColor } from "../../utils/common";
+import {
+  updateEventData,
+  returnThemeColor,
+  dateGetter,
+} from "../../utils/common";
 import { ThemeContext } from "../../context/Themes";
 
 function EventCard(props) {
-  const { themeData, setAllThemeData } = useContext(ThemeContext);
+  const { themeData } = useContext(ThemeContext);
   const navigate = useNavigate();
   const {
     id,
@@ -74,7 +78,7 @@ function EventCard(props) {
         </div>
         <div className="eventDate">
           <span className="boldClass"> DATE: </span>
-          {datetime}
+          {dateGetter(datetime)}
         </div>
         <div className="eventIcons">
           {renderIcon()}
